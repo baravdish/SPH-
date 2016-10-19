@@ -44,7 +44,7 @@ Pk = 0; % Represents P(k,m), where k < l
 if m > 0
     % The diagonal
     % P(m,m)
-    Pmm = ((-1)^m)*fact2((2*m-1))*(1-x^2)^(m/2);
+    Pmm = ((-1)^m)*fact2(2*m-1)*(1-x^2)^(m/2);
 end
 
 % In case 2), P(m,m):

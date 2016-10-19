@@ -5,49 +5,56 @@
 clear
 clc
 
-theta = pi/4;
-phi = pi/4;
-l = 0;
 m = 0;
+l = 1;
 
-y = SH(l,m,theta,phi)
+% Debug note: Y(theta,phi) confirmed correct - see groundTruth.m (for a
+% single direction (theta,phi) up to l,m = 2,2 - might check for all directions
+% theta = pi/4;
+% phi = pi/3;
+% y = SH(l,m,theta,phi)
 
-%% Something
-% 1) create a grid of elevation and azimuth angles
-% help meshgrid
-% 2) calculate the radius of the desired spherical harmonic points over the grid
-% help legendre
-% 3) convert elevation, azimuth and radius to Cartesian
-% help sph2cart
-% 4) produce a 3D surface plot
-R = 1;
 Phi = linspace(0,2*pi);
-Theta = linspace(0,pi);
+Theta = linspace(-pi/2,pi/2);
 [Phi,Theta] = meshgrid(Phi,Theta);
+% Confirm that the grid is correct:
+% [X,Y,Z] = sph2cart(Theta,Phi,1);
+% surf(X,Y,Z);
+% r = sqrt(X(1,1).^2 + Y(1,1).^2 + Z(1,1).^2);
 
 for t = 1:size(Theta,2)
     for p = 1:size(Phi,1)
-        theta = Theta(t,1);
-        phi = Phi(1,p);
-        y(t,p) = SH(l,m,theta,phi);
+        y(t,p) = abs(SH(l,m,Theta(t,1),Phi(1,p)));
+%         y(t,p) = sqrt(3)*Theta(t,1)/(2*sqrt(pi));
     end
 end
 
-figure
+% kolla viewporten
 [X,Y,Z] = sph2cart(Theta,Phi,y);
 surf(X,Y,Z);
+% axis([-0.5 0.5 -0.5 0.5])
+
+% 1) create a grid of elevation and azimuth angles
+% 2) calculate the radius of spherical harmonic points over the grid
+% 3) convert elevation, azimuth and radius to Cartesian
+% 4) surf
 
 
-% r = 100;
-% [X,Y,Z] = sphere(r);
-% [THETA, PHI, r] = cart2sph(X,Y,Z);
-% surf(X,Y,Z);
-% l = 1;
-% m = -1;
-% for t = 1:size(THETA,2)
-%     for p = 1:size(PHI,1)
-%         theta = THETA(2,t);
-%         phi = PHI(p,2);
-%         y(t,p) = SH(l,m,theta,phi);
-%     end
-% end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,8 +9,8 @@ if nargin < 2 || m > l
     return;
 end
 
-denominator = (2*l+1)*factorial((l-abs(m)));
-numerator = 4*pi*factorial((l+abs(m)));
+denominator = (2*l+1)*factorial((l-m));
+numerator = 4*pi*factorial((l+m));
 
 K = sqrt(denominator/numerator);
 
