@@ -4,6 +4,8 @@ phi = pi/3;
 x = sin(theta)*cos(phi);
 y = sin(theta)*sin(phi);
 z = cos(theta);
+
+
 l = 1;
 m = 0;
 

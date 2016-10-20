@@ -5,8 +5,8 @@
 clear
 clc
 
-m = 0;
-l = 1;
+m = 1;
+l = 2;
 
 % Debug note: Y(theta,phi) confirmed correct - see groundTruth.m (for a
 % single direction (theta,phi) up to l,m = 2,2 - might check for all directions
@@ -15,7 +15,7 @@ l = 1;
 % y = SH(l,m,theta,phi)
 
 Phi = linspace(0,2*pi);
-Theta = linspace(-pi/2,pi/2);
+Theta = linspace(0,pi);
 [Phi,Theta] = meshgrid(Phi,Theta);
 % Confirm that the grid is correct:
 % [X,Y,Z] = sph2cart(Theta,Phi,1);
@@ -24,7 +24,7 @@ Theta = linspace(-pi/2,pi/2);
 
 for t = 1:size(Theta,2)
     for p = 1:size(Phi,1)
-        y(t,p) = abs(SH(l,m,Theta(t,1),Phi(1,p)));
+        y(t,p) = SH(l,m,Theta(t,1),Phi(1,p));
 %         y(t,p) = sqrt(3)*Theta(t,1)/(2*sqrt(pi));
     end
 end
