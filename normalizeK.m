@@ -1,8 +1,10 @@
-function [K] = normConstantK(l,m)
-%NORMCONSTANTK Calculate normalization constant K
-%   K = normConstantK(l,m)
+function [K] = normalizeK(l,m)
+%NORMALIZEK Calculate normalization constant K
+%   K = normalizeK(l,m)
 %   l: represents the band order [0,N] - integer N
 %   m: "degree" [-l,l] (l as in L)
+% 
+% Author: Gabriel Baravdish
 
 if nargin < 2 || m > l
     disp('Conditions: nargin = 2, m > L');

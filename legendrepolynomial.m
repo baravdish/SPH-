@@ -1,11 +1,11 @@
-function [P] = LegendrePoly(l, m, x)
-%LEGENDREPOLY Calculate Legendre polynomial P of band order l and "degree"
+function [P] = legendrepolynomial(l, m, x)
+%LEGENDREPOLYNOMIAL Calculate Legendre polynomial P of band order l and "degree"
 %   m, for a value x.
-%   P = LegendrePoly(l,m,x)
+%   P = legendrepolynomial(l,m,x)
 %   l: represents the band order [0,N] - integer N
 %   m: "degree" [0,l] (l as in L)
 %   x: value, represents x = cos(theta) => x in range [-1,1]
-%
+% Author: Gabriel Baravdish
 % Details:
 % This method consists of 3 rules or algorithms, which are described in - 
 % Spherical Harmonic Lighting: The Gritty Details, Robin Green 2003 page 10

@@ -1,10 +1,15 @@
+% GROUNDTRUTH - Use this to test against the ground truth 
+% =======================================================
+% Ground truth table, see: Stupid Spherical Harmonics Tricks by Peter Sloan
+% =======================================================
+% Author: Gabriel Baravdish
+
 disp('THETA = pi/4, PHI = pi/3');
 theta = pi/4;
 phi = pi/3;
 x = sin(theta)*cos(phi);
 y = sin(theta)*sin(phi);
 z = cos(theta);
-
 
 l = 1;
 m = 0;
@@ -13,7 +18,7 @@ m = 0;
 
 sum = 0;
 for t = linspace(0,pi,100)
-    Y = SH(l,m,t,phi);
+    Y = sphericalharmonic(l,m,t,phi);
     truth = sqrt(3)*cos(t)/(2*sqrt(pi));
     if abs(Y-truth) > eps
         disp('Bigger than floating point precision');

@@ -1,18 +1,22 @@
 %% Main
-% ================================
-% Ground truth table: (StupidSHTricks36.pdf Appendix A2) by Peter Sloan
-% ================================
+% Main for spherical harmonic. Use sphericalharmonic(l,m,theta,phi)
+% Author: Gabriel Baravdish
+% Outline method:
+% 1) Create a grid of theta and phi angles
+% 2) Calculate the radius of spherical harmonic points over the grid
+% 3) Convert theta, phi and radius to Cartesian
+% 4) Plot
+% =================================================================
 clear
 clc
 
-m = 1;
-l = 2;
+m = 0;
+l = 1;
 
-% Debug note: Y(theta,phi) confirmed correct - see groundTruth.m (for a
-% single direction (theta,phi) up to l,m = 2,2 - might check for all directions
+% Debug note: Y(theta,phi) confirmed correct - see groundTruth.m 
 % theta = pi/4;
 % phi = pi/3;
-% y = SH(l,m,theta,phi)
+% y = sphericalharmonic(l,m,theta,phi)
 
 Phi = linspace(0,2*pi);
 Theta = linspace(0,pi);
@@ -21,23 +25,20 @@ Theta = linspace(0,pi);
 % [X,Y,Z] = sph2cart(Theta,Phi,1);
 % surf(X,Y,Z);
 % r = sqrt(X(1,1).^2 + Y(1,1).^2 + Z(1,1).^2);
+y = zeros(size(Theta,2), size(Phi,1));
 
 for t = 1:size(Theta,2)
     for p = 1:size(Phi,1)
-        y(t,p) = SH(l,m,Theta(t,1),Phi(1,p));
-%         y(t,p) = sqrt(3)*Theta(t,1)/(2*sqrt(pi));
+        y(t,p) = sphericalharmonic(l,m,Theta(t,1),Phi(1,p));
+        % Ground truth for l = 1, m = 0:
+%         y(t,p) = sqrt(3)*Theta(t,1)/(2*sqrt(pi)); 
     end
 end
 
-% kolla viewporten
+% check the viewport?
 [X,Y,Z] = sph2cart(Theta,Phi,y);
 surf(X,Y,Z);
-% axis([-0.5 0.5 -0.5 0.5])
 
-% 1) create a grid of elevation and azimuth angles
-% 2) calculate the radius of spherical harmonic points over the grid
-% 3) convert elevation, azimuth and radius to Cartesian
-% 4) surf
 
 
 
