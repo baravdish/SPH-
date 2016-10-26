@@ -10,34 +10,43 @@
 clear
 clc
 
+% l - band index
+% m - "degree" index
 m = 0;
-l = 1;
+l = 0;
 
-% Debug note: Y(theta,phi) confirmed correct - see groundTruth.m 
-% theta = pi/4;
-% phi = pi/3;
-% y = sphericalharmonic(l,m,theta,phi)
-
-Phi = linspace(0,2*pi);
-Theta = linspace(0,pi);
-[Phi,Theta] = meshgrid(Phi,Theta);
-% Confirm that the grid is correct:
+% Define Grid (check for [0,2pi] etc.)
+PHI = linspace(0,2*pi);
+THETA = linspace(0,pi);
+[PHI,THETA] = meshgrid(PHI,THETA);
+SIZE = length(THETA);
+% Confirm that the grid looks good:
 % [X,Y,Z] = sph2cart(Theta,Phi,1);
 % surf(X,Y,Z);
-% r = sqrt(X(1,1).^2 + Y(1,1).^2 + Z(1,1).^2);
-y = zeros(size(Theta,2), size(Phi,1));
 
-for t = 1:size(Theta,2)
-    for p = 1:size(Phi,1)
-        y(t,p) = sphericalharmonic(l,m,Theta(t,1),Phi(1,p));
+y = zeros(SIZE, SIZE);
+for t = 1:SIZE
+    for p = 1:SIZE
+        % Debug note: Y(theta,phi) confirmed correct - see groundTruth.m
+        y(t,p) = sphericalharmonic(l,m,THETA(t,1),PHI(1,p));
         % Ground truth for l = 1, m = 0:
 %         y(t,p) = sqrt(3)*Theta(t,1)/(2*sqrt(pi)); 
     end
 end
-
+% Radius already normalized?
 % check the viewport?
-[X,Y,Z] = sph2cart(Theta,Phi,y);
-surf(X,Y,Z);
+[X,Y,Z] = sph2cart(THETA,PHI,y);
+% surf(X,Y,Z);
+% axis equal
+% view(30,70);
+
+%% Image projection
+
+
+
+
+
+
 
 
 

@@ -4,29 +4,31 @@
 % =======================================================
 % Author: Gabriel Baravdish
 
-disp('THETA = pi/4, PHI = pi/3');
 theta = pi/4;
 phi = pi/3;
-x = sin(theta)*cos(phi);
-y = sin(theta)*sin(phi);
-z = cos(theta);
-
 l = 1;
 m = 0;
 
-% Y = SH(l,m,theta,phi)
-
-sum = 0;
+totalDifference = 0;
 for t = linspace(0,pi,100)
     Y = sphericalharmonic(l,m,t,phi);
     truth = sqrt(3)*cos(t)/(2*sqrt(pi));
     if abs(Y-truth) > eps
-        disp('Bigger than floating point precision');
+        disp('Larger than double precision');
     end
-    sum = sum + abs(Y - truth);
+    totalDifference = totalDifference + abs(Y - truth);
 end
+totalDifference
+
 
 % ======== Few polynomial forms
+% x = sin(theta)*cos(phi);
+% y = sin(theta)*sin(phi);
+% z = cos(theta);
+% Y = sphericalharmonic(l,m,theta,phi)
+
+% Ground truth, compare with Y:
+
 % disp('l = 0, m = 0');
 % 1/(2*sqrt(pi))
 % disp('l = 1, m = -1');
