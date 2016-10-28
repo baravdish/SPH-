@@ -7,18 +7,24 @@ clc
 
 I = imread('village.jpg');
 I = imresize(I, 0.1);
+[X,Y,Z] = sphere(size(I,2));
+w = warp(X,Y,Z,I);
+rotate(w,[90 0],180);
+
 % I = permute(I,[1 2 3]);
 % I = rgb2gray(I);
-[row, col, c] = size(I);
-
-PHI = linspace(0,2*pi,row);
-THETA = linspace(0,pi,col);
-[PHI,THETA] = meshgrid(THETA,PHI);
-
-[X,Y,Z] = sph2cart(THETA,PHI,1);
-warp(X,Y,Z,I);
-shading interp
-% end
+% [row, col, c] = size(I);
+% 
+% PHI = linspace(0,2*pi,row);
+% THETA = linspace(0,pi,col);
+% [THETA] = meshgrid(THETA); 
+% [PHI] = meshgrid(PHI);     
+% 
+% r = 1;
+% [X,Y,Z] = sph2cart(THETA,PHI,r);
+% warp(X,Y,Z,I);
+% shading interp
+% % end
 
 
 
