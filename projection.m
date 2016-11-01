@@ -1,44 +1,71 @@
-% function [I] = projection(I)
-% PROJECTION - Project and image I on a sphere
 % azimuth/col theta
 % elevation/row phi
+% ================= TEST =================
+% 0.01, [10,10] - 0.6
+% 0.05, [10,10] - 16
+% 0.1, [10,10] - 65
+% ================= WITH LUT ================
+% 0.01, [10,10] - 0.1
+% 0.05, [10,10] - 2
+% 0.1, [10,10] - 8
+
 clear
 clc
-
-I = imread('village.jpg');
-I = imresize(I, 0.1);
-[X,Y,Z] = sphere(size(I,2));
-w = warp(X,Y,Z,I);
-rotate(w,[90 0],180);
-
-% I = permute(I,[1 2 3]);
-% I = rgb2gray(I);
-% [row, col, c] = size(I);
-% 
-% PHI = linspace(0,2*pi,row);
-% THETA = linspace(0,pi,col);
-% [THETA] = meshgrid(THETA); 
-% [PHI] = meshgrid(PHI);     
-% 
-% r = 1;
-% [X,Y,Z] = sph2cart(THETA,PHI,r);
-% warp(X,Y,Z,I);
+load vars
+vars.FACT = FACT;
+vars.FACT2 = FACT2;
+clear i n N df ans
+I = im2double(imread('village.jpg'));
+I = rgb2gray(I);
+I = imresize(I, 0.04);
+PHI = linspace(0,2*pi,size(I,2));
+THETA = linspace(0,pi,size(I,1));
+[PHI,THETA] = meshgrid(PHI,THETA);
+[X,Y,Z] = sph2cart(THETA,PHI,1);
+% surf(X,Y,Z,I);
 % shading interp
-% % end
+% colormap gray
+thetaSize = size(THETA,1);
+phiSize = size(PHI,2);
 
+L = 40;
+M = 40;
+SPH = zeros(thetaSize,phiSize,L,2*M+1);
 
+tic
+for l = 0:L
+    for m = -l:l
+        for t = 1:thetaSize
+            for p = 1:phiSize
+                SPH(t,p,l+1,m+l+1) =  ...
+                sphericalharmonic(l,m,THETA(t,1),PHI(1,p),vars);
+            end
+        end
+    end
+end
+toc
+%% Calculate C
 
+iVec = I(:);
+weight = 4*pi;
+C = zeros(l+1,2*l+1);
+for l = 0:L
+    for m = -l:l
+        y = SPH(:,:,l+1,m+l+1);
+        yVec = y(:)';
+        C(l+1,m+l+1) =  weight*yVec*iVec/length(yVec);
+    end
+end
+% C = 4*pi*C;
 
-
-
-
-
-
-
-
-
-
-
+FINAL = zeros(size(I));
+for l = 0:L
+    for m = -l:l
+        FINAL = FINAL + C(l+1,m+l+1)*SPH(:,:,l+1,m+l+1);
+    end
+end
+imshow(FINAL);
+%     pause
 
 
 
@@ -57,10 +84,3 @@ rotate(w,[90 0],180);
 % shading interp
 % view(140,15);
 % N = SIZE*SIZE;
-
-% for t = 1:SIZE
-%     for p = 1:SIZE
-%       c(i)
-%     end
-% end
-

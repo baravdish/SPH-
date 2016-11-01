@@ -18,7 +18,7 @@ for t = linspace(0,pi,100)
     end
     totalDifference = totalDifference + abs(Y - truth);
 end
-totalDifference
+% totalDifference
 
 
 % ======== Few polynomial forms

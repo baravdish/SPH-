@@ -1,10 +1,11 @@
-function [P] = legendrepolynomial(l, m, x)
+function [P] = legendrepolynomial(l, m, x, vars)
 %LEGENDREPOLYNOMIAL Calculate Legendre polynomial P of band order l and "degree"
 %   m, for a value x.
 %   P = legendrepolynomial(l,m,x)
 %   l: represents the band order [0,N] - integer N
 %   m: "degree" [0,l] (l as in L)
 %   x: value, represents x = cos(theta) => x in range [-1,1]
+%   vars: lookup table
 % Author: Gabriel Baravdish
 % Details:
 % This method consists of 3 rules or algorithms, which are described in - 
@@ -24,6 +25,16 @@ if m < 0 || m > l || abs(x) > 1 || nargin < 3
     disp('Bad arguments, conditions: m <= L, m >= 0, and abs(x) > 1')
     return;
 end
+
+% Lookup table
+FACT2 = vars.FACT2;
+% try
+%     FACT2 = evalin('base','FACT2');
+% catch
+%     warning('In legendrepolynomial, could not load vars from workspace');
+%     return;
+% end
+
 % Old/future code:
 % l = l+1; % increment to cover index (0,0) because it's (1,1) in matlab
 % P = zeros(l+1,m+1);
