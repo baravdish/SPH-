@@ -40,18 +40,24 @@ end
 % axis equal
 % view(30,70);
 
-%% Image projection
+%% Image reconstruction with SPH
 
 
 
 
+%% Test - projection of an intensity function f
 
+% For a single sum expression: i=l(l+1)+m
 
+% Intensity map
+% intensity = max(0, 0.1*cos(THETA)-4) + ...
+%             max(0,-0.05*sin(THETA)*cos(PHI-3)-3);
+% lamb = max(0,cos(THETA));
 
-
-
-
-
-
-
+% surf(X,Y,Z,intensity);
+% colormap gray
+% axis equal;
+% shading interp
+% view(140,15);
+% N = SIZE*SIZE;
 
