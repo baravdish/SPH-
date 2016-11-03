@@ -16,9 +16,10 @@ function [SPH] = buildsph(L, M, THETA, PHI, vars)
 % colormap gray
 
 
-SPH = zeros(thetaSize,phiSize,L,2*M+1);
 thetaSize = size(THETA,1);
 phiSize = size(PHI,2);
+SPH = zeros(thetaSize,phiSize,L,2*M+1);
+
 for l = 31:40
     for m = -l:l
         for t = 1:thetaSize
