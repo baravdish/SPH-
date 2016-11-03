@@ -1,4 +1,14 @@
 function [SPH] = buildsph(L, M, THETA, PHI, vars)
+% BUILDSPH - Build and store the spherical harmonic functions
+% SPH = BUILDSPH(L, M, THETA, PHI, vars)
+% L: Band index
+% M: "Degree"
+% THETA: Azimuth
+% PHI: Elevation
+% vars: LUT for factorial
+% 
+% Author: Gabriel Baravdish
+
 % ================= TEST =================
 % 0.01, [10,10] - 0.6
 % 0.05, [10,10] - 16
